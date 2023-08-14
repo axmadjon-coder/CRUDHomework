@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<center>
+    
+    <h1>
+        
+        
+        Asosiy sahifa
+        
+        login success
+        
+        
+        <span>Hi {{ request.user.username | title }}</span>
+        <a href="{% url 'logout' %}" onclick="return confirm('Tizimdan chiqasizmi?')">Logout</a>
+    </h1>
+</center>
+    {%if request.user.is_authenticated %}
+    <table class="table container">
+    <center>
+        <a href="{% url 'createProduct' %}" class="btn btn-success">Add</a>
+    </center>
+    <thead>
+        <th>
+            name
+        </th>
+        <th>
+            narx
+        </th>
+        <th>
+            miqdori
+        </th>
+        <th>
+            turi
+        </th>
+        <th>
+            admin
+        </th>
+        <th>
+            tahrir
+        </th>
+    </thead>
+
+    <tbody>
+        
+        {% for product in product  %}
+        <tr>
+            
+            <td>
+                {{product.name}}
+            </td>
+            
+            <td>
+                {{product.narx}}
+            </td>
+            
+            <td>
+                {{product.miqdor}}
+            </td>
+            
+            <td>
+                {{product.turi}}
+            </td>
+            
+            <td>
+                {{product.administrator}}
+            </td>
+
+            <td>
+                <a href="{% url 'detailProduct' product.id %}" class="btn btn-dark">View</a>
+                <a href="" class="btn btn-primary">Edit</a>
+                <a href="{% url 'deleteProduct' product.id %}" class="btn btn-danger" onclick="return confirm('Uchirasizmi?')">Delete</a>
+            </td>
+            
+        </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {%else%}
+    <a href="{% url 'login' %}">Login</a>
+    <h2 class='alert alert-danger'>Ro'yhatdan O'tmagansiz!</h2>
+    {%endif%}
+
+
+
+
+
+    {% endblock content %}
